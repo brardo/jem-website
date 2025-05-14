@@ -28,6 +28,13 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #b30000;
+      padding: 10px 20px;
+    }
     .hero {
       background: #000;
       color: #fff;
@@ -68,15 +75,17 @@
     .produto button:hover {
       background-color: #800000;
     }
+    #carrinho-wrapper {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-top: 2px solid #b30000;
+    }
     #carrinho {
-      position: fixed;
-      top: 10px;
-      right: 10px;
       background-color: white;
       border: 2px solid #b30000;
       padding: 10px;
       max-width: 300px;
-      z-index: 1000;
+      margin: 0 auto;
     }
     #carrinho h3 {
       margin-top: 0;
@@ -113,13 +122,6 @@
     </nav>
   </header>
 
-  <div id="carrinho">
-    <h3 data-pt="Carrinho" data-en="Cart">Carrinho</h3>
-    <ul id="itensCarrinho"></ul>
-    <p><strong data-pt="Total:" data-en="Total:">Total:</strong> €<span id="totalCarrinho">0.00</span></p>
-    <button id="pagar" onclick="pagarAgora()" data-pt="Finalizar Compra" data-en="Checkout">Finalizar Compra</button>
-  </div>
-
   <section class="hero">
     <h1 data-pt="Peças e Acessórios para Tractores e Máquinas Agrícolas" data-en="Parts and Accessories for Tractors and Agricultural Machinery">Peças e Acessórios para Tractores e Máquinas Agrícolas</h1>
     <p data-pt="Soluções agrícolas com qualidade e confiança" data-en="Agricultural solutions with quality and trust">Soluções agrícolas com qualidade e confiança</p>
@@ -154,6 +156,15 @@
         <p><strong>€10,00</strong></p>
         <button onclick="adicionarCarrinho('Lâmpadas LED', 10)" data-pt="Adicionar ao Carrinho" data-en="Add to Cart">Adicionar ao Carrinho</button>
       </div>
+    </div>
+  </section>
+
+  <section id="carrinho-wrapper">
+    <div id="carrinho">
+      <h3 data-pt="Carrinho" data-en="Cart">Carrinho</h3>
+      <ul id="itensCarrinho"></ul>
+      <p><strong data-pt="Total:" data-en="Total:">Total:</strong> €<span id="totalCarrinho">0.00</span></p>
+      <button id="pagar" onclick="pagarAgora()" data-pt="Finalizar Compra" data-en="Checkout">Finalizar Compra</button>
     </div>
   </section>
 
