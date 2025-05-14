@@ -102,9 +102,112 @@
   </style>
 </head>
 <body>
-  <!-- Conteúdo omitido para brevidade -->
+  <header>
+    <img src="logo_jem.png" alt="Logotipo JEM" />
+    <nav>
+      <a href="#empresa" data-pt="Empresa" data-en="Company">Empresa</a>
+      <a href="#produtos" data-pt="Produtos" data-en="Products">Produtos</a>
+      <a href="#contactos" data-pt="Contactos" data-en="Contacts">Contactos</a>
+      <span class="lang-btn" onclick="mudarIdioma('pt')">PT</span>
+      <span class="lang-btn" onclick="mudarIdioma('en')">EN</span>
+    </nav>
+  </header>
+
+  <div id="carrinho">
+    <h3 data-pt="Carrinho" data-en="Cart">Carrinho</h3>
+    <ul id="itensCarrinho"></ul>
+    <p><strong data-pt="Total:" data-en="Total:">Total:</strong> €<span id="totalCarrinho">0.00</span></p>
+    <button id="pagar" onclick="pagarAgora()" data-pt="Finalizar Compra" data-en="Checkout">Finalizar Compra</button>
+  </div>
+
+  <section class="hero">
+    <h1 data-pt="Peças e Acessórios para Tractores e Máquinas Agrícolas" data-en="Parts and Accessories for Tractors and Agricultural Machinery">Peças e Acessórios para Tractores e Máquinas Agrícolas</h1>
+    <p data-pt="Soluções agrícolas com qualidade e confiança" data-en="Agricultural solutions with quality and trust">Soluções agrícolas com qualidade e confiança</p>
+  </section>
+
+  <section class="section" id="empresa">
+    <h2 data-pt="Sobre Nós" data-en="About Us">Sobre Nós</h2>
+    <p data-pt="Somos uma empresa especializada na venda de peças e acessórios para tractores e máquinas agrícolas. Com anos de experiência no setor, garantimos produtos de qualidade e atendimento personalizado."
+       data-en="We are a company specialized in selling parts and accessories for tractors and agricultural machinery. With years of experience in the sector, we guarantee quality products and personalized service.">
+       Somos uma empresa especializada na venda de peças e acessórios para tractores e máquinas agrícolas. Com anos de experiência no setor, garantimos produtos de qualidade e atendimento personalizado.
+    </p>
+  </section>
+
+  <section class="section bg-red" id="produtos">
+    <h2 data-pt="Produtos em Destaque" data-en="Featured Products">Produtos em Destaque</h2>
+    <div class="produtos">
+      <div class="produto">
+        <h3>Filtro de Óleo</h3>
+        <p data-pt="Alta performance e durabilidade." data-en="High performance and durability.">Alta performance e durabilidade.</p>
+        <p><strong>€15,00</strong></p>
+        <button onclick="adicionarCarrinho('Filtro de Óleo', 15)" data-pt="Adicionar ao Carrinho" data-en="Add to Cart">Adicionar ao Carrinho</button>
+      </div>
+      <div class="produto">
+        <h3>Kit de Juntas</h3>
+        <p data-pt="Compatível com diversas marcas." data-en="Compatible with several brands.">Compatível com diversas marcas.</p>
+        <p><strong>€32,00</strong></p>
+        <button onclick="adicionarCarrinho('Kit de Juntas', 32)" data-pt="Adicionar ao Carrinho" data-en="Add to Cart">Adicionar ao Carrinho</button>
+      </div>
+      <div class="produto">
+        <h3>Lâmpadas LED</h3>
+        <p data-pt="Maior visibilidade para o seu trator." data-en="Greater visibility for your tractor.">Maior visibilidade para o seu trator.</p>
+        <p><strong>€10,00</strong></p>
+        <button onclick="adicionarCarrinho('Lâmpadas LED', 10)" data-pt="Adicionar ao Carrinho" data-en="Add to Cart">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contactos">
+    <h2 data-pt="Contactos" data-en="Contacts">Contactos</h2>
+    <p><strong>Morada:</strong> Zona Industrial de Muge, Rua B, Lote nº5, 2125-367 Muge</p>
+    <p><strong>Telemóveis:</strong> 938 353 713 (Miguel Brardo), 938 425 617 (David Brardo)</p>
+    <p><strong>Telefone:</strong> 243 589 078</p>
+    <p><strong>Email:</strong> jem@live.com.pt</p>
+    <p data-pt="Horário: Segunda a Sexta: 8h00 - 18h00 | Sábado: 8h00 - 13h00" data-en="Opening Hours: Monday to Friday: 8am - 6pm | Saturday: 8am - 1pm">Horário: Segunda a Sexta: 8h00 - 18h00 | Sábado: 8h00 - 13h00</p>
+  </section>
+
+  <footer>
+    &copy; 2025 José, Eduardo e Miguel - Todos os direitos reservados.
+  </footer>
+
   <script>
-    // Funções de carrinho e mudança de idioma (também omitidas aqui para brevidade)
+    let carrinho = [];
+
+    function adicionarCarrinho(produto, preco) {
+      carrinho.push({ produto, preco });
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const lista = document.getElementById('itensCarrinho');
+      const totalSpan = document.getElementById('totalCarrinho');
+      lista.innerHTML = '';
+      let total = 0;
+      carrinho.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.produto} - €${item.preco.toFixed(2)}`;
+        lista.appendChild(li);
+        total += item.preco;
+      });
+      totalSpan.textContent = total.toFixed(2);
+    }
+
+    function pagarAgora() {
+      if (carrinho.length === 0) {
+        alert("O carrinho está vazio.");
+        return;
+      }
+      const total = carrinho.reduce((soma, item) => soma + item.preco, 0);
+      const mensagem = `Olá, gostaria de finalizar a compra com o total de €${total.toFixed(2)}. Itens: ` + carrinho.map(i => i.produto).join(', ');
+      const urlWhatsApp = `https://wa.me/351938353713?text=${encodeURIComponent(mensagem)}`;
+      window.open(urlWhatsApp, '_blank');
+    }
+
+    function mudarIdioma(idioma) {
+      document.querySelectorAll('[data-pt]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${idioma}`);
+      });
+    }
   </script>
 </body>
 </html>
